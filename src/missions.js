@@ -186,6 +186,7 @@ class HotProperty extends Mission {
     const sp = roadPoint(8, 1, 1, 30, 8.6);
     this.car = new Vehicle(g, 'race', sp.x, sp.z, sp.heading);
     this.car.persistent = true;
+    this.car.mission = true;
     g.vehicles.push(this.car);
     this.drop = { x: roadCoord(1) + RW + 10, z: roadCoord(9) - RW - 10 };
     this.target = { x: sp.x, z: sp.z };
@@ -215,11 +216,12 @@ class HotProperty extends Mission {
         g.player.exitVehicle(true);
         const bonus = Math.round(1500 * this.car.health / this.car.maxHealth);
         this.car.persistent = false;
+        this.car.mission = false;
         this.mgr.pass(2000 + bonus);
       }
     }
   }
-  cleanup() { if (this.car) this.car.persistent = false; }
+  cleanup() { if (this.car) { this.car.persistent = false; this.car.mission = false; } }
 }
 
 class Delivery extends Mission {
@@ -355,6 +357,7 @@ class Wreckage extends Mission {
     this.cars = spots.map((s) => {
       const v = new Vehicle(g, 'suv-luxury', s.x, s.z, s.heading);
       v.persistent = true;
+      v.mission = true;
       g.vehicles.push(v);
       return v;
     });
@@ -372,7 +375,7 @@ class Wreckage extends Mission {
     this.objective(`Destroy the marked cars (${left} left)`);
     if (left === 0) this.mgr.pass(3000);
   }
-  cleanup() { for (const c of this.cars) c.persistent = false; }
+  cleanup() { for (const c of this.cars) { c.persistent = false; c.mission = false; } }
 }
 
 const MISSIONS = { hotProperty: HotProperty, delivery: Delivery, race: StreetRace, cleanup: Cleanup, wreckage: Wreckage };

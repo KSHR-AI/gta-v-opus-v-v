@@ -264,6 +264,7 @@ class Game {
     const v = this.player.vehicle, s = this.city.locations.spray;
     if (!v) { this.inSpray = false; return; }
     const inside = Math.hypot(v.pos.x - s.x, v.pos.z - s.z) < s.r;
+    let handled = inside;
     if (inside && !this.inSpray) {
       if (this.police.wanted > 0 || v.health < v.maxHealth) {
         if (this.player.money >= 100) {
@@ -273,10 +274,14 @@ class Game {
           this.police.clear();
           this.hud.big('RESPRAYED', 'gold', '-$100 · wanted level cleared', 2.5);
           this.audio.cash();
-        } else this.hud.feed('You need $100 for a respray.');
+        } else {
+          // not handled: retry while parked once the player can pay (message throttled)
+          handled = false;
+          if (!(this.sprayMsgAt > this.time)) { this.hud.feed('You need $100 for a respray.'); this.sprayMsgAt = this.time + 4; }
+        }
       }
     }
-    this.inSpray = inside;
+    this.inSpray = handled;
   }
 
   // ---------- main loop ----------

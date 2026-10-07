@@ -394,6 +394,7 @@ export class TrafficManager {
       const v = g.vehicles[k];
       if (v.driver === g.player) continue;
       const d = Math.hypot(v.pos.x - pp.x, v.pos.z - pp.z);
+      if (v.mission && !v.destroyed) { if (!v.driver) v.update(dt, null); continue; }
       const limit = v.persistent ? 450 : v.driver ? 240 : 200;
       const burnt = v.destroyed && v.burnTimer !== undefined && (v.burnTimer -= dt) < -60 && d > 60;
       if (d > limit || burnt || (v.sinking > 6 && d > 30)) {

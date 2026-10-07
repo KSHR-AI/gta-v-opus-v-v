@@ -70,7 +70,7 @@ export class Player {
   }
 
   selectWeapon(kind) {
-    if (this.owned.has(kind) && (kind === 'fists' || this.ammo[kind] + this.clip[kind] > 0)) { this.weapon = kind; this.reloading = 0; }
+    if (this.owned.has(kind) && (kind === 'fists' || this.ammo[kind] + this.clip[kind] > 0) && kind !== this.weapon) { this.weapon = kind; this.reloading = 0; }
   }
 
   update(dt) {

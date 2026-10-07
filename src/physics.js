@@ -111,9 +111,16 @@ export class CollisionWorld {
         if (disc < 0) continue;
         t = (-bb - Math.sqrt(disc)) / (2 * a);
         if (t < 0) continue;
+        // entered the side above the top: check the top cap
+        if (oy + dy * t > b.height && dy < 0) {
+          const tt = (b.height - oy) / dy;
+          const px = ox + dx * tt - b.x, pz = oz + dz * tt - b.z;
+          if (tt < 0 || px * px + pz * pz > b.r * b.r) continue;
+          t = tt;
+        }
       } else {
         let tmin = 0, tmax = best;
-        for (const [o, d, mn, mx] of [[ox, dx, b.minX, b.maxX], [oz, dz, b.minZ, b.maxZ]]) {
+        for (const [o, d, mn, mx] of [[ox, dx, b.minX, b.maxX], [oy, dy, 0, b.height], [oz, dz, b.minZ, b.maxZ]]) {
           if (Math.abs(d) < 1e-8) { if (o < mn || o > mx) { tmin = Infinity; break; } continue; }
           let t1 = (mn - o) / d, t2 = (mx - o) / d;
           if (t1 > t2) [t1, t2] = [t2, t1];
@@ -122,7 +129,7 @@ export class CollisionWorld {
         }
         t = tmin;
       }
-      if (t < best && oy + dy * t <= b.height && oy + dy * t >= 0) best = t;
+      if (t < best && oy + dy * t <= b.height + 1e-4 && oy + dy * t >= -1e-4) best = t;
     }
     return best;
   }

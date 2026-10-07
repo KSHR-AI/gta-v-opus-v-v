@@ -213,7 +213,7 @@ export class AudioSystem {
   schedule() {
     const ctx = this.ctx;
     const st = STATIONS[this.station];
-    if (!st.bpm || !this.game.player?.vehicle) { this.nextNoteTime = ctx.currentTime + 0.05; return; }
+    if (!st.bpm || !this.game.player?.vehicle || this.game.paused) { this.nextNoteTime = ctx.currentTime + 0.05; return; }
     const sixteenth = 60 / st.bpm / 4;
     while (this.nextNoteTime < ctx.currentTime + 0.12) {
       this.playStep(st, this.step, this.nextNoteTime, sixteenth);

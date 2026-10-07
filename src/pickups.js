@@ -117,7 +117,13 @@ export class Pickups {
   }
 
   remove(i) {
-    this.game.scene.remove(this.items[i].mesh);
+    const mesh = this.items[i].mesh;
+    this.game.scene.remove(mesh);
+    mesh.traverse((o) => {
+      if (!o.isMesh) return;
+      o.geometry.dispose();
+      for (const m of Array.isArray(o.material) ? o.material : [o.material]) m.dispose();
+    });
     this.items.splice(i, 1);
   }
 }
