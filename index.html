@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Port Solano — Open World</title>
+  <link rel="stylesheet" href="/src/style.css" />
+</head>
+<body>
+  <div id="app"></div>
+
+  <div id="hud" class="hidden">
+    <div id="minimap-wrap">
+      <canvas id="minimap" width="440" height="440"></canvas>
+      <div id="bars">
+        <div class="bar"><div id="hp-bar" class="fill hp"></div></div>
+        <div class="bar"><div id="armor-bar" class="fill armor"></div></div>
+      </div>
+    </div>
+    <div id="top-right">
+      <div id="clock">12:00</div>
+      <div id="weapon"><span id="weapon-name">Fists</span> <span id="ammo"></span></div>
+      <div id="money">$0</div>
+      <div id="wanted"></div>
+    </div>
+    <div id="zone"></div>
+    <div id="vehicle-name"></div>
+    <div id="speedo"></div>
+    <div id="radio"></div>
+    <div id="mission-text"></div>
+    <div id="objective"></div>
+    <div id="timer"></div>
+    <div id="help"></div>
+    <div id="crosshair"></div>
+    <div id="hitmarker"></div>
+    <div id="feed"></div>
+    <div id="big-message"></div>
+    <div id="damage-vignette"></div>
+  </div>
+
+  <div id="bigmap" class="hidden"><canvas id="bigmap-canvas"></canvas><div class="legend">M — close map</div></div>
+
+  <div id="overlay">
+    <div class="panel">
+      <h1>PORT <span>SOLANO</span></h1>
+      <div class="tagline">an open-world crime sandbox</div>
+      <div id="loading"><div id="loading-bar"></div></div>
+      <div id="loading-text">Loading city…</div>
+      <button id="play" disabled>Loading…</button>
+      <div class="controls">
+        <div><b>WASD</b> move / drive</div>
+        <div><b>Mouse</b> look</div>
+        <div><b>Shift</b> sprint · <b>Space</b> jump / handbrake</div>
+        <div><b>F</b> enter / exit / steal vehicle</div>
+        <div><b>LMB</b> attack / shoot · <b>RMB</b> aim</div>
+        <div><b>1-4 / wheel</b> switch weapon · <b>R</b> reload</div>
+        <div><b>H</b> horn / siren · <b>Q</b> radio · <b>C</b> camera</div>
+        <div><b>M</b> map · <b>E</b> start mission · <b>Esc</b> pause</div>
+      </div>
+      <div class="credits">3D assets: Kenney.nl (CC0). Original game — not affiliated with any other franchise.</div>
+    </div>
+  </div>
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
