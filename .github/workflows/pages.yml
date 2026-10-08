@@ -18,7 +18,7 @@ jobs:
       - name: Download the frozen public source
         run: |
           mkdir source
-          curl --fail --silent --show-error --location https://api.github.com/repos/KSHR-AI/gpt-v-opus-v-v/tarball/d49675b1dac0c2b784f98f8cd740a7743ad30d11 | tar -xz --strip-components=1 -C source
+          curl --fail --silent --show-error --location https://api.github.com/repos/KSHR-AI/gta-v-opus-v-v/tarball/d49675b1dac0c2b784f98f8cd740a7743ad30d11 | tar -xz --strip-components=1 -C source
       - name: Build without host credentials
         run: |
           docker run --rm --cap-drop=ALL --security-opt=no-new-privileges \
